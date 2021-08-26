@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+	<!-- Start header -->
+	<header class="top-navbar">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container">
+				<a class="navbar-brand" href="{% url 'meals:meal_list' %}">
+					<img src="{% static 'site_static/images/logo.png' %}" alt="" />
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbars-rs-food">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item"><a class="nav-link" href="{% url 'home:home' %}">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'meals:meal_list' %}">Menu</a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'reservation:reserve_table' %}">Reservation</a></li>
+						<li class="nav-item active"><a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a></li>
+						<li class="nav-item"><a class="nav-link" href="{% url 'contact:send_email' %}">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- End header -->
+	
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>Join and find all of what you need</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+	
+	<!-- Start blog -->
+	<div class="blog-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Blog</h2>
+						<p>All about interesting here. Join and have all of what you need</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+            {% for post in post_list %}
+				<div class="col-lg-4 col-md-6 col-12">
+					<div class="blog-box-inner">
+						<div class="blog-img-box">
+							<img class="img-fluid" src="{{ post.image.url }}" alt="">
+						</div>
+						<div class="blog-detail">
+							<h4>
+                                <a style="color:black" href="{% url 'blog:post_detail' post.id %}">{{ post }}</a>
+                            </h4>
+							<ul>
+								<li><span>Post by {{ post.author }}</span></li>
+								<li>|</li>
+								<li><span>{{ post.created.date }}</span></li>
+							</ul>
+							<p>{{ post.content | truncatewords:50 }}</p>
+							<a class="btn btn-lg btn-circle btn-outline-new-white" href="{% url 'blog:post_detail' post.id %}">Read More</a>
+						</div>
+					</div>
+				</div>
+            {% endfor %}
+			</div>
+
+			<!-- Pagination Pages -->
+			<div class="row">
+				{% if post_list.has_other_pages %}
+					<div class="col-md-12">
+						<ul class="pagination custom-pagination" style="display: inline-block;padding-left: 0;list-style: none;border-radius: .25rem;text-align: center;width: 100%;">
+
+							{% if post_list.has_previous %}
+								<li class="page-item prev" style="display: inline-block;">
+									<a class="page-link" href="?page={{post_list.previous_page_number}}" 
+										style="display: block;
+										width: 40px;
+										height: 40px;
+										line-height: 40px;
+										padding: 0;
+										margin: 0;
+										color: #fdb44b;
+										border-radius: 50%;">
+										<i class="fa fa-angle-left"></i>
+									</a>
+								</li>
+							{% else %}
+								<li class="disabled"></li>
+							{% endif %}
+							
+							{% for pages in post_list.paginator.page_range %}
+								{% if post_list.number == pages %}
+									<li class="page-item active" style="display: inline-block;">
+										<a style="display: block;
+											width: 40px;
+											height: 40px;
+											line-height: 40px;
+											padding: 0;
+											margin: 0;
+											background: #fdb44b;
+											color: #fff;
+											border-radius: 50%;" class="page-linkx" href="#">{{pages}}
+										</a>
+									</li>
+								{% else %}
+									<li class="page-item active" style="display: inline-block;">
+										<a style="display: block;
+											width: 40px;
+											height: 40px;
+											line-height: 40px;
+											padding: 0;
+											margin: 0;
+											background: #fdb44b;
+											color: #fff;
+											border-radius: 50%;" class="page-linkx" href="?page={{pages}}">{{pages}}
+										</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+							
+							{% if post_list.has_next %}
+								<li class="page-item next" style="display: inline-block;">
+									<a style="display: block;
+										width: 40px;
+										height: 40px;
+										line-height: 40px;
+										padding: 0;
+										margin: 0;
+										color: #fdb44b;
+										border-radius: 50%;" class="page-link" href="?page={{post_list.next_page_number}}">
+										<i class="fa fa-angle-right"></i>
+									</a>
+								</li>
+							{% else %}
+								<li class="disabled"></li>
+							{% endif %} 
+						
+						</ul>
+					</div>
+				{% endif %}
+			</div>
+			<!-- End Pagination Pages -->
+		</div>
+	</div>
+	<!-- End blog -->
+	
+{% endblock body %}

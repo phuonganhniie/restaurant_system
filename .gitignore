@@ -1,0 +1,11 @@
+src/blog/__pycache__
+src/blog/migrations/__pycache__
+src/contact/__pycache__
+src/contact/migrations/__pycache__
+src/home/__pycache__
+src/home/migrations/__pycache__
+src/restaurant_system/__pycache__
+src/reservation/__pycache__
+src/reservation/migrations/__pycache__
+src/meals/migrations/__pycache__
+src/meals/__pycache__
