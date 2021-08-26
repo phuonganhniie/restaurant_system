@@ -60,21 +60,24 @@ git clone https://github.com/phuonganhniie/restaurant_system.git
 
 cd ./src
 ```
-
 ---
-## Install requirements.txt
+### Install requirements.txt
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### goto src directory and create db models
+### Goto src directory and create db models
 ```bash
 cd src/
 python manage.py makemigrations
 python manage.py migrate
 ```
+### - Download & install **DB Browser for SQLite** for control database
+### - Open database **db.sqlite3** in **DB Browser for SQLite**
+### - Import **dinner_restaurant.sqlite3.sql** data file into database
 
-### Run dev server at port 8000
+---
+## Run dev server at port 8000
 ```bash
 python manage.py runserver
 ```
